@@ -1,0 +1,82 @@
+{% load  static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+		<link rel="stylesheet" href="{% static 'plugins/bootstrap-3.3.7-dist/css/bootstrap.css' %}">
+		<style>
+            .account {
+                width: 400px;
+                border: 1px solid gray;
+                padding-left: 30px;
+                padding-right: 30px;
+                padding-bottom: 30px;
+                border-radius: 10px;
+                margin-top: 150px;
+                margin-left: auto;
+                margin-right: auto;
+                box-shadow: 5px 5px 5px #aaa;
+            }
+
+            .account h1 {
+                text-align: center;
+                font-weight: 1000;
+                margin-bottom: 30px
+            }
+		</style>
+	</head>
+	<body>
+		<div class="account">
+			<form class="form-horizontal" method="post" novalidate>
+				{% csrf_token %}
+				<h1>用户登录</h1>
+				<div class="form-group">
+					<label>用户名:</label>
+					<div>
+						{{ form.username }}
+						<span style="color: red">{{ form.username.errors.0 }}</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label>密码:</label>
+					<div>
+						{{ form.password }}
+						<span style="color: red">{{ form.password.errors.0 }}</span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label >图片验证码:</label>
+					<div class="row">
+						<div class="col-xs-7">
+							{{ form.image_code }}
+							<span style="color: red">{{ form.image_code.errors.0 }}</span>
+						</div>
+						<div class="col-xs-5">
+							<div id="image_reset"><img id="imag_code" src="/image/code/" style="width: 120px"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-primary">登录</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		{% block js %}
+			<script type="text/javascript">
+			$(function () {
+                $('#image_reset').click(function () {
+					$.ajax({
+						url:'image/reset',
+						type: 'get',
+					})
+                })
+            })
+			</script>
+		{% endblock %}
+	</body>
+</html>

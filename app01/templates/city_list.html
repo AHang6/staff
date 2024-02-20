@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+	<style>
+		.table th{
+			text-align: center;
+		}
+		.table tbody tr td{
+			line-height: 40px;
+			text-align: center;
+		}
+	</style>
+{% endblock %}
+
+
+{% block content %}
+	<div class="container">
+		<div>
+			<a href="/city/add/" type="button" class="btn btn-success" style="margin-bottom: 20px">新建城市</a>
+			<a href="/city/model/add/" type="button" class="btn btn-success" style="margin-bottom: 20px">新建城市[ModelForm]</a>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">城市列表</div>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>LOGO</th>
+						<th>标题</th>
+						<th>人口</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for obj in queryset %}
+					<tr>
+						<td>{{ obj.id }}</td>
+						<td>
+							<img src="/media/{{ obj.img }}" alt="" style="width: 40px">
+						</td>
+						<td>{{ obj.title }}</td>
+						<td>{{ obj.count }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+{% endblock %}

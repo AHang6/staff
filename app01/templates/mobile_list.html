@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+	<div>
+		<div class="container">
+			<div class="clearfix">
+				<a class="btn btn-success" href="/mobile/add/" style="margin-bottom: 10px">
+					<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+					新建靓号
+				</a>
+
+				<div style="float: right; width: 300px">
+					<form method="get">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search for..." name="q"
+								   value="{{ search_data }}">
+							<span class="input-group-btn">
+        					<button class="btn btn-default" type="submit">
+								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+							</button>
+      					</span>
+						</div><!-- /input-group -->
+					</form>
+				</div>
+			</div>
+
+			<div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+						靓号列表
+					</div>
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>手机号</th>
+								<th>价格</th>
+								<th>级别</th>
+								<th>状态</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for obj in queryset %}
+								<tr>
+									<th>{{ obj.id }}</th>
+									<td>{{ obj.mobile }}</td>
+									<td>{{ obj.price }}</td>
+									<td>{{ obj.get_level_display }}</td>
+									<td>{{ obj.get_status_display }}</td>
+									<td>
+										<a class="btn btn-primary btn-xs" href="/mobile/{{ obj.id }}/edit/">编辑</a>
+										<a class="btn btn-danger btn-xs" href="/mobile/{{ obj.id }}/delete/">删除</a>
+									</td>
+								</tr>
+							{% endfor %}
+
+						</tbody>
+					</table>
+				</div>
+
+				<div class="clearfix">
+					<ul class="pagination">
+						{{ page_string }}
+					</ul>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

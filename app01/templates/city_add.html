@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">添加城市</div>
+			<div class="panel-body">
+				<form action="/city/model/add/" method="post" novalidate enctype="multipart/form-data">
+					{% csrf_token %}
+					{% for field in form %}
+						<div class="form-group">
+							<label for="">{{ field.label }}</label>
+							{{ field }}
+							<span style="color: red">{{ field.errors.0 }}</span>
+						</div>
+					{% endfor %}
+					<input type="submit" value="提交" class="btn btn-primary">
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}
